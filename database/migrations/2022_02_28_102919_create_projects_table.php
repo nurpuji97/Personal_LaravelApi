@@ -13,8 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('card_testimonis', function (Blueprint $table) {
-            $table->string('photo')->after('nama'); //
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description');
+            $table->date('tanggal_selesai');
+            $table->string('author');
+            $table->text('link_download');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('card_testimonis', function (Blueprint $table) {
-            $table->dropColumn('photo');
-        });
+        Schema::dropIfExists('projects');
     }
 };

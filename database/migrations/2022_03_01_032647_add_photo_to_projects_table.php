@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('card_testimonis', function (Blueprint $table) {
-            $table->string('photo')->after('nama'); //
+        Schema::table('projects', function (Blueprint $table) {
+            $table->string('photo')->after('name');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('card_testimonis', function (Blueprint $table) {
+        Schema::table('projects', function (Blueprint $table) {
             $table->dropColumn('photo');
         });
     }

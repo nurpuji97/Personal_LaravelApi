@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeed::class,
             CardtestimoniSeed::class,
+            ProjectSeed::class,
+            SaranSeed::class,
         ]);
     }
 }
