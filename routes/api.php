@@ -23,41 +23,47 @@ use Illuminate\Support\Facades\Route;
 // login
 Route::post('/login', [AuthController::class, 'login']);
 
-// testimoni
-Route::get('/CardTestimoni', [CardController::class, 'Testimoni']);
 
-// project
-Route::get('/Project', [CardController::class, 'Project']);
+Route::controller(CardController::class)->group(function() {
+    
+    // testimoni
+    Route::get('/CardTestimoni', 'Testimoni');
 
-// create saran
-Route::post('/Saran', [CardController::class, 'CreateSaran']);
+    // project
+    Route::get('/Project', 'Project');
+
+    // create saran
+    Route::post('/Saran', 'CreateSaran'); 
+
+});
 
 
 Route::group(['middleware' => ['auth:sanctum', 'checkRole:admin']], function (){
 
-    // Create testimoni
-    Route::post('/CreateTestimoni', [CardController::class, 'CreateTestimoni']);
+    Route::controller(CardController::class)->group(function() {
 
-    // hapus Testimoni
-    Route::delete('/DeteleTestimoni/{id}', [CardController::class, 'DeleteTestimoni']);
+        // Create testimoni
+        Route::post('/CreateTestimoni', 'CreateTestimoni');
+        
+        // hapus Testimoni
+        Route::delete('/DeteleTestimoni/{id}', 'DeleteTestimoni');
 
+        // create project
+        Route::post('/Project', 'CreateProject');
 
-    // create project
-    Route::post('Project', [CardController::class, 'CreateProject']);
+        // edit Project
+        Route::get('/Project/{id}', 'EditProject');
+        
+        // update project
+        Route::put('/Project/{id}', 'UpdateProject');
+        
+        // delete project
+        Route::delete('/Project/{id}', 'DeleteProject');
+        
+        // saran
+        Route::get('/Saran', 'Saran');
 
-    // edit Project
-    Route::get('Project/{id}', [CardController::class, 'EditProject']);
-
-    // update project
-    Route::put('Project/{id}', [CardController::class, 'UpdateProject']);
-
-    // delete project
-    Route::delete('Project/{id}', [CardController::class, 'DeleteProject']);
-
-
-    // saran
-    Route::get('/Saran', [CardController::class, 'Saran']);
-
+    });
 
     // logout
     Route::get('/logout', [AuthController::class, 'logout']);
